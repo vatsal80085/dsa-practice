@@ -1,3 +1,58 @@
+### day 12 Maximum Product Subarray
+
+Given an integer array, the task is to find the ****maximum product**** of any subarray.
+
+****Examples:****
+
+> ****Input:**** arr[] = {-2, 6, -3, -10, 0, 2}  
+> ****Output:**** 180  
+> ****Explanation:**** The subarray with maximum product is {6, -3, -10} with product = 6 * (-3) * (-10) = 180
+> 
+> ****Input:**** arr[] = {-1, -3, -10, 0, 60}  
+> ****Output:**** 60  
+> ****Explanation:**** The subarray with maximum product is {60}.
+
+```cpp
+// C++ program to find Maximum Product Subarray using 
+// Traversal From Starting and End of an Array
+
+#include <bits/stdc++.h>
+using namespace std;
+
+// function to find the product of max product subarray.
+int maxProduct(vector<int> &arr) {
+      int n = arr.size();
+    int maxProd = INT_MIN;
+  
+    // leftToRight to store product from left to Right
+    int leftToRight = 1;
+  
+    // rightToLeft to store product from right to left
+    int rightToLeft = 1;
+  
+    for (int i = 0; i < n; i++) {
+        if (leftToRight == 0)
+            leftToRight = 1;
+        if (rightToLeft == 0)
+            rightToLeft = 1;
+      
+        // calculate product from index left to right
+        leftToRight *= arr[i];
+      
+        // calculate product from index right to left
+        int j = n - i - 1;
+        rightToLeft *= arr[j];
+        maxProd = max({leftToRight, rightToLeft, maxProd});
+    }
+    return maxProd;
+}
+
+int main() {
+    vector<int> arr = { -2, 6, -3, -10, 0, 2 };
+    cout << maxProduct(arr);
+    return 0;
+}
+```
 ### day 11 Kadane's Algorithm
 
 Given an integer array **arr[].** You need to find the **maximum** sum of a subarray.  
