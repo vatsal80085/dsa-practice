@@ -1,3 +1,70 @@
+### day 13 Max Circular Subarray Sum
+
+Given an array of integers **arr[]** in a **circular** fashion. Find the **maximum** subarray sum that we can get if we assume the array to be circular.
+**Examples:**
+
+**Input:** arr[] = [8, -8, 9, -9, 10, -11, 12]
+**Output:** 22
+**Explanation:** Starting from the last element of the array, i.e, 12, and moving in a circular fashion, we have max subarray as 12, 8, -8, 9, -9, 10, which gives maximum sum as 22.
+
+**Input:** arr[] = [10, -3, -4, 7, 6, 5, -4, -1]
+**Output:** 23
+**Explanation:** Maximum sum of the circular subarray is 23. The subarray is [7, 6, 5, -4, -1, 10].  
+
+**Input:** arr[] = [-1, 40, -14, 7, 6, 5, -4, -1]   
+**Output:** 52
+**Explanation:** Circular Subarray [7, 6, 5, -4, -1, -1, 40] has the maximum sum, which is 52.
+
+**Constraints:**  
+1 <= arr.size() <= 10^5  
+-10^4 <= arr[i] <= 10^4
+
+```cpp
+class Solution {
+  public:
+    // arr: input array
+    // Function to find maximum circular subarray sum.
+    int circularSubarraySum(vector<int> &arr) {
+
+        // your code here
+        int n = arr.size();
+    int suffixSum = arr[n - 1];
+    
+    // maxSuffix array to store the value of 
+    // maximum suffix occured so far.
+    vector<int> maxSuffix(n + 1, 0);
+    maxSuffix[n - 1] = arr[n - 1];
+    
+    for(int i = n - 2; i >= 0; i--) {
+        suffixSum = suffixSum + arr[i];
+        maxSuffix[i] = max(maxSuffix[i + 1], suffixSum);
+    }
+    
+    // circularSum is Maximum sum of circular subarray
+    int circularSum = arr[0];
+    
+    // normalSum is Maxium sum subarray considering 
+    // the array is non-circular
+    int normalSum = arr[0];
+    
+    int currSum = 0;
+    int prefix = 0;
+    
+    for(int i = 0; i < n; i++) {
+        
+        // Kadane's algorithm
+        currSum = max(currSum + arr[i], arr[i]);
+        normalSum = max(normalSum, currSum);
+      
+        // Calculating maximum Circular Sum
+        prefix = prefix + arr[i];
+        circularSum = max(circularSum, prefix + maxSuffix[i+1]);
+    }
+    
+    return max(circularSum, normalSum);
+    }
+};
+```
 ### day 12 Maximum Product Subarray
 
 Given an integer array, the task is to find the ****maximum product**** of any subarray.
