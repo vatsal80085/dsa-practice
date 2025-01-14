@@ -1,3 +1,59 @@
+### day 14 Find Smallest Missing Positive Number
+
+Given an unsorted array ****arr[]**** with both ****positive**** and ****negative**** elements, the task is to find the ****smallest**** positive number missing from the array.
+
+****Note:**** You can modify the original array.
+
+****Examples:****
+
+> ****Input:**** arr[] = {2, -3, 4, 1, 1, 7}  
+> ****Output:**** 3  
+> ****Explanation****: 3 is the smallest positive number missing from the array.
+> 
+> ****Input:**** arr[] = {5, 3, 2, 5, 1}  
+> ****Output:**** 4  
+> ****Explanation****: 4 is the smallest positive number missing from the array.
+> 
+> ****Input:**** arr[] = {-8, 0, -1, -4, -3}  
+> ****Output:**** 1  
+> ****Explanation****: 1 is the smallest positive number missing from the array
+
+```cpp
+// C++ program to find the first positive missing number 
+// using Sorting
+
+#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+// Function to find the first positive missing number
+int missingNumber(vector<int> &arr) {
+    sort(arr.begin(), arr.end());
+    int res = 1;
+    for (int i = 0; i < arr.size(); i++) {
+
+        // If we have found 'res' in the array,
+        // 'res' is no longer missing, so increment it
+        if (arr[i] == res) 
+            res++;
+
+        // If the current element is larger than 'res',
+        // 'res' cannot be found in the array,
+        // so it is our final answer
+        else if (arr[i] > res) 
+            break;
+    }
+    return res;
+}
+
+int main() {
+    vector<int> arr = {2, -3, 4, 1, 1, 7};
+
+    cout << missingNumber(arr);
+    return 0;
+}
+```
 ### day 13 Max Circular Subarray Sum
 
 Given an array of integers **arr[]** in a **circular** fashion. Find the **maximum** subarray sum that we can get if we assume the array to be circular.
