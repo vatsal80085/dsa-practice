@@ -1,3 +1,61 @@
+### day 17 Anagrams Strings
+Given two strings ****s1**** and ****s2**** consisting of ****lowercase**** characters, the task is to check whether the two given strings are ****anagrams**** of each other or not. An anagram of a string is another string that contains the same characters, only the order of characters can be different.
+
+****Examples:****
+
+> ****Input:**** s1 = “geeks”  s2 = “kseeg”  
+> ****Output:**** true  
+> ****Explanation:**** Both the string have same characters with same frequency. So, they are anagrams.
+> 
+> ****Input:**** s1 = “allergy”  s2 = “allergic”  
+> ****Output:**** false  
+> ****Explanation:**** Characters in both the strings are not same. s1 has extra character ****'y'**** and s2 has extra characters 'i' and 'c', so they are not anagrams.
+> 
+> ****Input:**** s1 = "g", s2 = "g"  
+> ****Output:**** true  
+> ****Explanation:**** Characters in both the strings are same, so they are anagrams.
+
+```cpp
+// C++ Code to check if two Strings are anagram of 
+// each other using Frequency Array
+
+#include <algorithm>
+#include <iostream>
+#include <vector>
+using namespace std;
+
+// As the input strings can only have lowercase 
+// characters, the maximum characters will be 26
+const int MAX_CHAR = 26;
+
+bool areAnagrams(string &s1, string &s2) {
+    vector<int> freq(MAX_CHAR, 0);
+    
+    // Count frequency of each character in string s1
+    for(char ch: s1) 
+        freq[ch - 'a']++;
+  
+    // Count frequency of each character in string s2
+    for(char ch: s2) 
+        freq[ch - 'a']--;
+  
+    // Check if all frequencies are zero
+    for (int count : freq) {
+        if (count != 0) 
+            return false;
+    }
+    
+    return true;
+}
+
+int main() {
+    string s1 = "geeks";
+    string s2 = "kseeg";
+    cout << (areAnagrams(s1, s2) ? "true" : "false") << endl;
+
+    return 0;
+}
+```
 ### day 16 Add two binary strings
 
 Given two binary strings ****s1**** and ****s2****, the task is to return their ****sum****.The ****input**** strings ****may contain leading zeros**** but the ****output**** string ****should not**** have any ****leading zeros****.
