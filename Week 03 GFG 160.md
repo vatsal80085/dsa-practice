@@ -1,4 +1,63 @@
-### day 17 Anagrams Strings
+### day 18 Find first non-repeating character of given string
+
+Given a string ****s**** of ****lowercase**** English letters, the task is to find the ****first non-repeating**** character. If there is no such character, return ****'$'****.
+
+****Examples:**** 
+
+> ****Input:**** s = "geeksforgeeks"  
+> ****Output: '****f'  
+> ****Explanation:**** 'f' is the first character in the string which does not repeat.
+> 
+> ****Input:**** s = "racecar"  
+> ****Output: '****e'  
+> ****Explanation:**** 'e' is the only character in the string which does not repeat.
+> 
+> ****Input:**** "aabbccc"  
+> ****Output:**** '$'  
+> ****Explanation:**** All the characters in the given string are repeating.
+
+```cpp
+// C++ program to find the index of the first
+// non repeating character using nested loop
+
+#include <iostream>
+using namespace std;
+
+// Function to find the index of the first 
+// non-repeating character
+char nonRepeatingChar(string &s) {
+    int n = s.length();
+
+    // Iterate over each character in the string
+    for (int i = 0; i < n; ++i) {
+        bool found = false;
+
+        // Check if the character repeats in the
+        // rest of the string
+        for (int j = 0; j < n; ++j) {
+            if (i != j && s[i] == s[j]) {
+                found = true;
+                break;
+            }
+        }
+
+        // If character does not repeat, return it
+        if (found == false) 
+            return s[i];
+    }
+
+    // If no such character is found, return '$'
+    return '$';
+}
+
+int main() {
+    string s = "racecar";
+  
+    cout << nonRepeatingChar(s);
+    return 0;
+}
+```
+### Anagrams Strings
 Given two strings ****s1**** and ****s2**** consisting of ****lowercase**** characters, the task is to check whether the two given strings are ****anagrams**** of each other or not. An anagram of a string is another string that contains the same characters, only the order of characters can be different.
 
 ****Examples:****
