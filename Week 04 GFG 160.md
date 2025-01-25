@@ -1,3 +1,60 @@
+### day 25  Merge Overlapping Intervals
+
+Given an array of time intervals, the task is to merge all the overlapping intervals into one and output the result which should have only mutually exclusive intervals.
+
+****Examples:****
+
+> ****Input:**** arr[] = [[1, 3], [2, 4], [6, 8], [9, 10]]  
+> ****Output:**** [[1, 4], [6, 8], [9, 10]]  
+> ****Explanation:**** In the given intervals, we have only two overlapping intervals [1, 3] and [2, 4]. Therefore, we will merge these two and return [[1, 4]], [6, 8], [9, 10]].
+> 
+> ****Input:**** arr[] = [[7, 8], [1, 5], [2, 4], [4, 6]]  
+> ****Output:**** [[1, 6], [7, 8]]  
+> ****Explanation:**** We will merge the overlapping intervals [[1, 5], [2, 4], [4, 6]] into a single interval [1, 6].
+
+```cpp
+// C++ Code to Merge Overlapping Intervals by checking 
+// overlapping intervals only
+
+#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+vector<vector<int>> mergeOverlap(vector<vector<int>>& arr) {
+
+    // Sort intervals based on start values
+    sort(arr.begin(), arr.end());
+  
+    vector<vector<int>> res;
+    res.push_back(arr[0]);
+
+    for (int i = 1; i < arr.size(); i++) {
+        vector<int>& last = res.back();
+        vector<int>& curr = arr[i];
+
+        // If current interval overlaps with the last merged
+        // interval, merge them 
+        if (curr[0] <= last[1]) 
+            last[1] = max(last[1], curr[1]);
+        else 
+            res.push_back(curr);
+    }
+
+    return res;
+}
+
+int main() {
+    vector<vector<int>> arr = {{7, 8}, {1, 5}, {2, 4}, {4, 6}};
+    vector<vector<int>> res = mergeOverlap(arr);
+
+      for (vector<int>& interval: res) 
+        cout << interval[0] << " " << interval[1] << endl;
+ 
+    return 0;
+}
+```
+
 ### day 24  Count Inversions of an Array
 
 Given an integer array ****arr[]**** of size ****n****, find the ****inversion**** ****count**** in the array. Two array elements ****arr[i]**** and ****arr[j]**** form an inversion if ****arr[i] > arr[j]**** and ****i < j.****
